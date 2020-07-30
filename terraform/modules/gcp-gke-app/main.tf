@@ -59,6 +59,31 @@ resource "kubernetes_deployment" "deployment" {
           }
         }
 
+        dynamic "container" {
+          for_each = var.enable_postgresql ? [var.enable_postgresql] : []
+
+          content {
+            name  = "cloud-sql-proxy"
+            image = "gcr.io/cloudsql-docker/gce-proxy:1.17"
+            command = [
+              "/cloud_sql_proxy",
+              "-instances=${var.postgresql_connection_name}=tcp:5432"
+            ]
+
+            resources {
+              limits {
+                cpu    = "0.5"
+                memory = "512Mi"
+              }
+
+              requests {
+                cpu    = "50m"
+                memory = "50Mi"
+              }
+            }
+          }
+        }
+
       }
     }
   }

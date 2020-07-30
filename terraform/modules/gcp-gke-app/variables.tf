@@ -34,3 +34,14 @@ variable "port" {
   type        = number
 }
 
+variable "enable_postgresql" {
+  description = "Enables PostgreSQL support via a Cloud Proxy Sidecar"
+  type        = bool
+  default     = false
+}
+
+variable "postgresql_connection_name" {
+  description = "The Cloud SQL connection name for a PostgreSQL database"
+  type        = string
+  default     = null
+}
