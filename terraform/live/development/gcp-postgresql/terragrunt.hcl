@@ -15,10 +15,6 @@ dependency "gke" {
   config_path = "../gcp-gke"
 }
 
-dependency "app" {
-  config_path = "../website-service"
-}
-
 inputs = {
   project_id = local.env.project
 
@@ -29,8 +25,4 @@ inputs = {
   tier = "db-f1-micro"
 
   enable_backups = false
-
-  authorized_networks = [
-    { name = dependency.gke.outputs.cluster_name, value = dependency.app.outputs.public_ip }
-  ]
 }
