@@ -35,6 +35,7 @@ variable "authorized_networks" {
     name  = string
     value = string
   }))
+  default = []
 }
 
 variable "enable_backups" {
